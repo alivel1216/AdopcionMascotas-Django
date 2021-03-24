@@ -14,48 +14,52 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
+            <img src="logo.jpg" style="width: 100px;height: 100px;" class="img-thumbnail " alt="...">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Iniciar Sesion</a>
-                    <a class="nav-link active" aria-current="page" href="#">Registrarse</a>
+                    <a class="nav-link active textoarr" aria-current="page" href="#">Dar en adopcion</a>
+                    <a class="nav-link active textoarr" aria-current="page" href="#">Guia de adopcion</sapan>
+                    <a class="nav-link active textoarr" aria-current="page" href="#">Iniciar Sesion</a>
+                    <a class="nav-link active textoarr" aria-current="page" href="#">Registrarse</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div style="border-style:solid;">
-        <img src="logo.jpg" style="width: 100px;height: 100px;" class="img-thumbnail " alt="...">
+      
 
 
-        <span class="nav-link active textoarr" aria-current="page" href="#">Dar en adopcion</span>
-        <span class="nav-link active textoarr" aria-current="page" href="#">Guia de adopcion</span>
+        
 
     </div>
     <div class="imagen1">
         <img src="slider.jpg" class="img-fluid largo" alt="...">
     </div>
 
-    <div class="busqueda">
+    <div class="busqueda select">
         <span class="display-5 bus">Tipo de Mascota</span>
-        <form action="#">
-            <input list="categorias" name="categoria">
-            <datalist id="categorias">
-                <option value="Perro">
-                <option value="Gato">
-                <option value="Hamster">
-                <option value="Pajaro">
-                <option value="Safari">
-            </datalist>
-            <input type="submit">
-        </form>
+        <form action="/action_page.php">
+            <select class="select-css">
+                <option>Selecciona una opción</option>
+                <option>Lunes</option>
+                <option>Martes</option>
+                <option>Miércoles</option>
+                <option>Jueves</option>   <option>Viernes</option>
+              </select>
+            <input  type="submit" class="btn btn-primary" value="Buscar">
+            </form>
     </div>
-    <p class="display-1 resultados">Resultados</p>
-
-    <div>
+    <div id="wrapper">
+        <div id="container1">
+    
+            <h1>Resultados</h1>
+        </div>
+    </div>
         <div class="container p-4">
             <div class="row">
 
@@ -72,6 +76,7 @@
 
             </div>
         </div>
+    </div>
         <div class="paginacion">
 
             <nav aria-label="Page navigation example">
