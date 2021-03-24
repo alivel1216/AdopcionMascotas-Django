@@ -1,0 +1,33 @@
+.textoarr{
+    float: right;
+    padding: 30px;
+}
+.largo{
+   
+    width:100%;
+    height: 210px;
+  
+}
+.imagen1{
+    padding: 10px;
+    justify-content: center;
+    text-align: center;
+}
+.busqueda{
+    padding: 10px;
+}
+.bus{
+    font-size: 25px;
+}
+.resultados{
+    text-align: center;
+}
+.pie{
+    height: 115px;
+
+    background-color: black;
+}
+.trans{
+    padding-top: 10px;
+
+}
