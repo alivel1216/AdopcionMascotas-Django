@@ -7,32 +7,37 @@ from datetime import datetime
 
 posts =[
     {
-        'name':'Monot Blanc',
-        'user': 'Alison Velastegui',
+        'title':'Monot Blanc',
+        'user':{
+            'name': 'Alison Velastegui',
+            'picture':'https://picsum.photos/200/200/?image=1036',
+
+        },
         'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'picture':'https://picsum.photos/200/200/?image=1036',
+        'photo':'https://picsum.photos/200/200/?image=1036',
     },
     {
-        'name':'Via Lactea',
-        'user': 'Alison Velastegui',
+        'title':'Via Lactea',
+        'user':{
+            'name': 'Alison Velastegui',
+            'picture':'https://picsum.photos/200/200/?image=903',
+
+        },
         'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'picture':'https://picsum.photos/200/200/?image=903',
+        'photo':'https://picsum.photos/200/200/?image=903',
     },
     {
-        'name':'Nuevo Auditorio',
-        'user': 'Alison Velastegui',
+        'title':'Nuevo Auditorio',
+        'user':{
+            'name': 'Alison Velastegui',
+            'picture':'https://picsum.photos/200/200/?image=1076',
+
+        },
         'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'picture':'https://picsum.photos/200/200/?image=1076',
+        'photo':'https://picsum.photos/200/200/?image=1076',
     }
 ]
 def list_post(request):
     """List existing posts"""
-    content =[]
-    for post in posts:
-        content.append("""
-        <p><strong>{name}</strong></p>
-        <p><small>{user} -<i>{timestamp}</i></small></p>
-        <figure><img src="{picture}"/></figure>
-        """.format(**post))
-    return HttpResponse('<br>'.join(content))
+    return render(request,'feed.html',{'posts':posts})
     
