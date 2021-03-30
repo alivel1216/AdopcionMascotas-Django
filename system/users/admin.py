@@ -1,6 +1,8 @@
 """Users app admin classes."""
 #Django
+from django.contrib.auth.admin import UserAdmin as baseUserAdmin
 from django.contrib import admin
+from django.contrib.auth.models import User
 #Models
 from users.models import Profile
 
@@ -22,3 +24,42 @@ class ProfileAdmin(admin.ModelAdmin):
         'create',    
         'modified'
     )
+
+    fieldsets = (
+        ('Profile',{
+            'fields':(('user','picture'),)
+        }),
+        ('Extra info',{
+            'fields':(
+                ('website','phone_number'),
+                ('biography')
+            )
+        }),
+        ('Metadata',{
+            'fields': (('create','modified'),),
+        })
+    )
+
+    readonly_fields = ('create','modified',)
+
+class ProfileInLine(admin.StackedInline):
+    """Profile in-line admin for users."""
+    model = Profile
+    can_delete = False
+    verbose_name = 'profiles'
+
+class UserAdmin(baseUserAdmin):
+    """Profile admin to base user admin."""
+
+    inlines = (ProfileInLine,)
+    list_display = (
+        'username',
+        'email',
+        'first_name',
+        'last_name',
+        'is_active',
+        'is_staff'
+    )
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
