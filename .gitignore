@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-*.png
-=======
 *.png
 *.jpg
->>>>>>> diseño
+.sqlite3
