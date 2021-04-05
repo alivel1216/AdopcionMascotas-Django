@@ -23,5 +23,5 @@ urlpatterns = [
     path('sorted/', local_views.sorted_int),
     path('hi/<str:name>/<int:age>/',local_views.say),
 
-    path('posts/',posts_views.list_post),
+    path('posts/',posts_views.list_post, name='feed'),
 ]
