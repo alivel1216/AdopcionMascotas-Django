@@ -1,5 +1,6 @@
 #Post/views
 #Dajngo
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
 #Utilities
@@ -37,6 +38,8 @@ posts =[
         'photo':'https://picsum.photos/200/200/?image=1076',
     }
 ]
+
+@login_required
 def list_post(request):
     """List existing posts"""
     return render(request,'posts/feed.html',{'posts':posts})
