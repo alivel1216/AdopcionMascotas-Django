@@ -14,8 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
     Cambios en url
 """
+#Django
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
+#Views
 from system import views as local_views
 from posts import views as posts_views
 from users import views as users_views
@@ -29,4 +33,5 @@ urlpatterns = [
     path('users/login/', users_views.login_views, name = 'login'),
     path('users/logout/', users_views.logout_views, name = 'logout'),
     path('users/signup/', users_views.signup_views, name = 'signup'),
+    path('users/me/profile', users_views.update_profile, name = 'update_profile'),
 ]
