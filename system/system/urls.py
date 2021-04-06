@@ -26,5 +26,7 @@ urlpatterns = [
 
     path('posts/',posts_views.list_post, name='feed'),
 
-    path('users/login/', users_views.login_views, name = 'login')
+    path('users/login/', users_views.login_views, name = 'login'),
+    path('users/logout/', users_views.logout_views, name = 'logout'),
+    path('users/signup/', users_views.signup_views, name = 'signup'),
 ]
