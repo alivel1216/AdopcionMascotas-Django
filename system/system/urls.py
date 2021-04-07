@@ -28,10 +28,11 @@ urlpatterns = [
     path('sorted/', local_views.sorted_int),
     path('hi/<str:name>/<int:age>/',local_views.say),
 
-    path('posts/',posts_views.list_post, name='feed'),
+    path('',posts_views.list_post, name='feed'),
+    path('posts/new',posts_views.create_post, name='create_post'),
 
     path('users/login/', users_views.login_views, name = 'login'),
     path('users/logout/', users_views.logout_views, name = 'logout'),
     path('users/signup/', users_views.signup_views, name = 'signup'),
     path('users/me/profile', users_views.update_profile, name = 'update_profile'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

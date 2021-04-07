@@ -1,16 +1,18 @@
 """Posts.models"""
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-class User(models.Model):
-    email=models.EmailField(unique=True)
-    password = models.CharField(max_length=20)
+class Post(models.Model):
+    """Post model."""
 
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    bio = models.TextField(blank=True)
-    birthdate = models.DateField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    profile = models.ForeignKey('users.Profile', on_delete=models.CASCADE)
 
-    created = models.DateTimeField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
+    title = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to='posts/photos')
+
+    create=models.DateTimeField(auto_now_add=True)
+    modified=models.DateTimeField(auto_now=True)
+

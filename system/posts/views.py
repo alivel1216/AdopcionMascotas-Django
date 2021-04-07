@@ -1,46 +1,36 @@
 #Post/views
 #Dajngo
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.http import HttpResponse
-#Utilities
-from datetime import datetime
+from django.shortcuts import render, redirect
 
-posts =[
-    {
-        'title':'Monot Blanc',
-        'user':{
-            'name': 'Alison Velastegui',
-            'picture':'https://picsum.photos/200/200/?image=1036',
+from posts.forms import PostForm
 
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo':'https://picsum.photos/200/200/?image=1036',
-    },
-    {
-        'title':'Via Lactea',
-        'user':{
-            'name': 'Alison Velastegui',
-            'picture':'https://picsum.photos/200/200/?image=903',
+#Models 
+from posts.models import Post
 
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo':'https://picsum.photos/200/200/?image=903',
-    },
-    {
-        'title':'Nuevo Auditorio',
-        'user':{
-            'name': 'Alison Velastegui',
-            'picture':'https://picsum.photos/200/200/?image=1076',
-
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo':'https://picsum.photos/200/200/?image=1076',
-    }
-]
 
 @login_required
 def list_post(request):
     """List existing posts"""
+    posts = Post.objects.all().order_by('-create')
     return render(request,'posts/feed.html',{'posts':posts})
     
+@login_required    
+def create_post(request):
+    """Create new post view."""
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('feed')
+    
+    else:
+        form = PostForm()
+
+    return render(request=request,
+    template_name='posts/new.html',
+    context={
+        'form':form,
+        'user': request.user,
+        'profile': request.user.profile
+    })
