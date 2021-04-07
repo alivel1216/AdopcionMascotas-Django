@@ -1,6 +1,8 @@
 #Post/views
 #Dajngo
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 from django.shortcuts import render, redirect
 
 from posts.forms import PostForm
@@ -9,11 +11,15 @@ from posts.forms import PostForm
 from posts.models import Post
 
 
-@login_required
-def list_post(request):
+
+class PostsFeedView(LoginRequiredMixin, ListView):
     """List existing posts"""
-    posts = Post.objects.all().order_by('-create')
-    return render(request,'posts/feed.html',{'posts':posts})
+    
+    template_name = 'posts/feed.html'
+    model = Post
+    ordering = ('-create',)
+    paginate_by = 2
+    context_object_name = 'posts'
     
 @login_required    
 def create_post(request):

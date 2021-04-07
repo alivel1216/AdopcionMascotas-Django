@@ -18,21 +18,14 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
-#Views
-from system import views as local_views
-from posts import views as posts_views
-from users import views as users_views
+from django.urls import path, include
+
+
 urlpatterns = [
+
     path('admin/', admin.site.urls),
-    path('sorted/', local_views.sorted_int),
-    path('hi/<str:name>/<int:age>/',local_views.say),
 
-    path('',posts_views.list_post, name='feed'),
-    path('posts/new',posts_views.create_post, name='create_post'),
-
-    path('users/login/', users_views.login_views, name = 'login'),
-    path('users/logout/', users_views.logout_views, name = 'logout'),
-    path('users/signup/', users_views.signup_views, name = 'signup'),
-    path('users/me/profile', users_views.update_profile, name = 'update_profile'),
+     path('', include(('posts.urls', 'posts'), namespace='posts')),
+    path('users/', include(('users.urls', 'users'), namespace='users')),
+   
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
