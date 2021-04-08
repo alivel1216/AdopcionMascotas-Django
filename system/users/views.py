@@ -1,62 +1,37 @@
 """Users views."""
-#Django
-from django.shortcuts import render,redirect
-from django.urls import reverse, reverse_lazy
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+
+# Django
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import views as auth_views
+from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, FormView, UpdateView
 
-#Models
-from posts.models import Post
+# Models
 from django.contrib.auth.models import User
+from posts.models import Post
+from users.models import Profile
 
-#Fomrs
-from users.forms import ProfileForm, SignupForm
+# Forms
+from users.forms import SignupForm
 
 # Create your views here.
-@login_required
-def update_profile(request):
-  """Update a user's profile view."""
 
-  profile = request.user.profile
+class UserDetailView(LoginRequiredMixin, DetailView):
+    """User detail view."""
 
-  if request.method == 'POST':
-    form = ProfileForm(request.POST, request.FILES)
-    if form.is_valid():
-      data = form.cleaned_data
-      
-      profile.website = data['website']
-      profile.phone_number = data['phone_number']
-      profile.biography = data['biography']
-      profile.picture = data['picture']
-      profile.save()
+    template_name = 'users/detail.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    queryset = User.objects.all()
+    context_object_name = 'user'
 
-      url =reverse('users:detail',kwargs={'username': request.user.username})
-      return redirect(url)
-    else:
-      form = ProfileForm()
+    def get_context_data(self, **kwargs):
+        """Add user's posts to context."""
+        context = super().get_context_data(**kwargs)
+        user = self.get_object()
+        context['posts'] = Post.objects.filter(user=user).order_by('-create')
+        return context
 
-  return render(
-    request=request,
-    template_name='users/update_profile.html',
-    context={
-      'profile': profile,
-      'user': request.user      
-    }
-  )  
-
-def login_views(request):
-  if request.method == 'POST':
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user:
-      login(request, user)
-      return redirect('posts:feed')
-    else:
-      return render(request, 'users/login.html', {'error': 'Invalid username or password'})
-  return render(request, 'users/login.html')
 
 class SignupView(FormView):
     """Users sign up view."""
@@ -71,23 +46,29 @@ class SignupView(FormView):
         return super().form_valid(form)
 
 
-@login_required
-def logout_views(request):
-  """Logout views."""
-  logout(request)
-  return redirect('users:login')
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
+    """Update profile view."""
 
-class UserDetailView(LoginRequiredMixin, DetailView):
-  """User detail views."""
-  template_name = 'users/detail.html'
-  slug_field = 'username'
-  slug_url_kwarg = 'username'
-  queryset = User.objects.all()
-  context_object_name = 'user'
+    template_name = 'users/update_profile.html'
+    model = Profile
+    fields = ['website', 'biography', 'phone_number', 'picture']
 
-  def get_context_data(self,**kwargs):
-    """Add user's posts to context."""
-    context = super().get_context_data(**kwargs)
-    user = self.get_object()
-    context['posts'] = Post.objects.filter(user=user).order_by('-create')
-    return context
+    def get_object(self):
+        """Return user's profile."""
+        return self.request.user.profile
+
+    def get_success_url(self):
+        """Return to user's profile."""
+        username = self.object.user.username
+        return reverse('users:detail', kwargs={'username': username})
+
+
+class LoginView(auth_views.LoginView):
+    """Login view."""
+
+    template_name = 'users/login.html'
+
+
+class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
+    """Logout view."""
+    template_name = 'users/logged_out.html'
