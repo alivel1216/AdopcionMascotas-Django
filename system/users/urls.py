@@ -26,6 +26,11 @@ urlpatterns = [
         name='signup'
     ),
     path(
+        route='report/',
+        view=views.ReportView.as_view(),
+        name='report'
+    ),
+    path(
         route='me/profile/',
         view=views.UpdateProfileView.as_view(),
         name='update'

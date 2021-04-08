@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 class PostAdmin(admin.ModelAdmin):
     """Posts Admin model"""
 
-    list_display = ('pk', 'user', 'photo', 'title')
+    list_display = ('pk', 'user', 'photo', 'title', 'description','category')
     list_display_links = ('pk', 'user')
     list_editable = ('photo',)
     list_filter = (

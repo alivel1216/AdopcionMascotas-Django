@@ -27,6 +27,28 @@
                     <div class="invalid-feedback">
                         {% for error in form.title.errors %}{{ error }}{% endfor %}
                     </div>
+                    <!--Category-->
+                    <input
+                        class="form-control {% if form.category.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="category"
+                        placeholder="Category"
+                        value="{% if form.errors %}{{ form.category.value }}{% endif %}"
+                    >
+                    <div class="invalid-feedback">
+                        {% for error in form.category.errors %}{{ error }}{% endfor %}
+                    </div>
+                    <!--Description-->
+                    <input
+                        class="form-control {% if form.description.errors %}is-invalid{% endif %}"
+                        type="text"
+                        name="description"
+                        placeholder="Description"
+                        value="{% if form.errors %}{{ form.description.value }}{% endif %}"
+                    >
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}{{ error }}{% endfor %}
+                    </div>
                 </div>
 
                 {# Photo field #}

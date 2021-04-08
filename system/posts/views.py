@@ -5,6 +5,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView, DetailView, ListView
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 from posts.forms import PostForm
 
@@ -29,6 +31,16 @@ class PostDetailView(LoginRequiredMixin, DetailView):
     queryset = Post.objects.all()
     context_object_name = 'post'
 
+def listar_publicaciones(request):
+    busqueda = request.POST.get("buscar") #Recuperamos la busqueda del usuario 
+    autores = Post.objects.all()
+    
+   
+    if busqueda: #Preguntando si busqueda está llena 
+        category = Post.objects.filter(
+            Q(category = busqueda) 
+        ).distinct()
+    return render(request, 'posts/feed.html')
 
 class CreatePostView(LoginRequiredMixin, CreateView):
     """Create a new post."""

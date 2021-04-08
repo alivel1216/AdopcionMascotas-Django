@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head_content %}
+<title>Create new post</title>
+{% endblock %}
+
+{% block container %} 
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6 pt-3 pb-3" id="profile-box">
+            <h4 class="mb-4">Reportar publicacion</h4>
+            <form method="post">{% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

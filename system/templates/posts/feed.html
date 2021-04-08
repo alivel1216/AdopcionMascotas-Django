@@ -1,40 +1,56 @@
 {% extends "base2.html" %}
 
 {% block head_content %}
-    <title>Adopta</title>
+<title>Adopta</title>
 {% endblock%}
 
 {% block container %}
-    <div class="container">
-        <div class="row">
+<div class="container">
+    <div class="row">
 
-            {% for post in posts %}
-            <div class="col-sm-12 col-md-8 offset-md-2 mt-5 p-0 post-container">
-                <div class="media pt-3 pl-3 pb-1">
-                    <a href="{% url 'users:detail' post.user.username %}">
-
-                        <img class="mr-3 rounded-circle" height="35" src="{{ post.profile.picture.url }}" alt="{{ post.user.get_full_name }}">
-                    </a>
-                    <div class="media-body">
-                        <p style="margin-top: 5px;">{{ post.user.get_full_name  }}</p>
-                    </div>
+        
+        {% for post in posts %}
+        <!--<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+            method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="buscar"
+                    value="{{ request.POST.buscar }}">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
                 </div>
+            </div>
+        </form>-->
+        <div class="col-sm-12 col-md-8 offset-md-2 mt-5 p-0 post-container">
+            <div class="media pt-3 pl-3 pb-1">
+                <a href="{% url 'users:detail' post.user.username %}">
 
-                <img style="width: 100%;" src="{{ post.photo.url }}" alt="{{ post.title }}">
-
-                <p class="mt-1 ml-2" >
-                    <a href="" style="color: #000; font-size: 20px;">
-                        <i class="far fa-heart"></i>
-                    </a> 30 likes
-                </p>
-                <p class="ml-2 mt-0 mb-2">
-                    <b>{{ post.title }}</b> - <small>{{ post.created }}</small>
-                </p>
-                
+                    <img class="mr-3 rounded-circle" height="35" src="{{ post.profile.picture.url }}"
+                        alt="{{ post.user.get_full_name }}">
+                </a>
+                <div class="media-body">
+                    <p style="margin-top: 5px;">{{ post.user.get_full_name }}</p>
+                </div>
             </div>
 
-            {% endfor %}
+            <img style="width: 100%;" src="{{ post.photo.url }}" alt="{{ post.title }}">
+
+            <p class="ml-2 mt-0 mb-2">
+                <small>{{ post.category }}</small>
+                <b>{{ post.description }}</b>
+            </p>
+
+            <h2 style="font-weight: 100;">
+                <a href="{% url 'users:report' %}" class="ml-5 btn btn-sm btn-danger">
+                    Reportar
+                </a>
+            </h2>
         </div>
+
+        {% endfor %}
     </div>
-    {% include 'pagination.html' %}
+</div>
+{% include 'pagination.html' %}
 {% endblock %}

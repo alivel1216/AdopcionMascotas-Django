@@ -4,12 +4,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import views as auth_views
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView, FormView, UpdateView
+from django.views.generic import DetailView, FormView, UpdateView, CreateView
+from django.shortcuts import render, redirect
 
 # Models
 from django.contrib.auth.models import User
 from posts.models import Post
-from users.models import Profile
+from users.models import Profile, Report
 
 # Forms
 from users.forms import SignupForm
@@ -62,7 +63,6 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         username = self.object.user.username
         return reverse('users:detail', kwargs={'username': username})
 
-
 class LoginView(auth_views.LoginView):
     """Login view."""
 
@@ -72,3 +72,9 @@ class LoginView(auth_views.LoginView):
 class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
     """Logout view."""
     template_name = 'users/logged_out.html'
+
+class ReportView(LoginRequiredMixin, CreateView):
+    """Create a new post."""
+    model = Report
+    fields = ['report']
+

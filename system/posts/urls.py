@@ -16,7 +16,11 @@ urlpatterns = [
         view=views.CreatePostView.as_view(),
         name='create'
     ),
-
+    path(
+        route='posts/serch/',
+        view=views.listar_publicaciones,
+        name='buscar'
+    ),
     path(
         route='posts/<int:pk>/',
         view=views.PostDetailView.as_view(),

@@ -61,5 +61,9 @@ class UserAdmin(baseUserAdmin):
         'is_staff'
     )
 
+class Report(baseUserAdmin):
+    list_display = ('report')
+
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

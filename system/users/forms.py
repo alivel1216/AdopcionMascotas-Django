@@ -4,7 +4,7 @@
 from django import forms
 
 from django.contrib.auth.models import User
-from users.models import Profile
+from users.models import Profile, Report
 
 
 class SignupForm(forms.Form):
@@ -50,6 +50,8 @@ class SignupForm(forms.Form):
         profile = Profile(user=user)
         profile.save()
 
+
+    
 
 class ProfileForm(forms.Form):
     website = forms.URLField(max_length=200, required=True)
