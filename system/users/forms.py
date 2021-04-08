@@ -20,7 +20,9 @@ class SignupForm(forms.Form):
 
     email = forms.CharField(min_length=6, max_length=70,
                             widget=forms.EmailInput())
+    
 
+    #Valida si el nombre de usuario ya existe 
     def clean_username(self):
         username = self.cleaned_data['username']
         username_taken = User.objects.filter(username=username).exists()
@@ -28,7 +30,7 @@ class SignupForm(forms.Form):
             raise forms.ValidationError('Username is already in use.')
 
         return username
-
+    #Valida que las contraseñas coincidan
     def clean(self):
         data = super().clean()
 

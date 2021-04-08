@@ -13,6 +13,9 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='posts/photos')
 
+    category = models.CharField(max_length=10, null=True)
+    description = models.TextField(max_length=100, blank=True)
+
     create=models.DateTimeField(auto_now_add=True)
     modified=models.DateTimeField(auto_now=True)
 
