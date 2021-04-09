@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <!--<link rel="stylesheet" href="styles.css">-->
+    <link rel="icon" type="image/x-icon" href="{% static 'img/logo.jpg' %}">
 </head>
 
 <body>
@@ -35,7 +36,7 @@
                     <a class="nav-link active textoarr" aria-current="page" href="{% url 'posts:guia' %}">Guia de adopcion</sapan>
                         <!--<a class="nav-link active textoarr" aria-current="page" href="#">Iniciar Sesión</a>-->
                         <a class="nav-link active textoarr" aria-current="page" href="{% url 'users:logout' %}">Cerrar Sesión</a>
-                        <a class="nav-link active textoarr" aria-current="page" href="#">Registrarse</a>
+                        
                 </div>
             </div>
         </div>
@@ -68,7 +69,7 @@
                 <div class="row" style="justify-content: center; text-align: center;">
                     <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
                         <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
-                            <img src="{% static 'img/Logo_ESPE.png' %}" class="w-100" />
+                            <img src="{% static 'img/Logo_ESPE.png' %}" class="img-fluid" style="width: 200px;" alt="..." />
                             <a href="#!">
                                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
                             </a>
