@@ -17,7 +17,7 @@ from posts.models import Post
 
 class PostsFeedView(LoginRequiredMixin, ListView):
     """List existing posts"""
-    
+   
     template_name = 'posts/feed.html'
     model = Post
     ordering = ('-create',)
@@ -31,16 +31,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
     queryset = Post.objects.all()
     context_object_name = 'post'
 
-def listar_publicaciones(request):
-    busqueda = request.POST.get("buscar") #Recuperamos la busqueda del usuario 
-    autores = Post.objects.all()
     
-   
-    if busqueda: #Preguntando si busqueda está llena 
-        category = Post.objects.filter(
-            Q(category = busqueda) 
-        ).distinct()
-    return render(request, 'posts/feed.html')
 
 class CreatePostView(LoginRequiredMixin, CreateView):
     """Create a new post."""
@@ -55,3 +46,7 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         context['user'] = self.request.user
         context['profile'] = self.request.user.profile
         return context
+
+def GuiaAdopcionView(request):
+    """Return post detail."""
+    return render(request, 'posts/guia.html')

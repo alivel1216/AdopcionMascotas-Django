@@ -8,21 +8,21 @@
 <div class="container">
     <div class="row">
 
-        
-        {% for post in posts %}
+
         <!--<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-            method="POST">
-            {% csrf_token %}
+            method="GET">
+            
             <div class="input-group">
-                <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="buscar"
-                    value="{{ request.POST.buscar }}">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="buscar">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search fa-sm"></i>
                     </button>
                 </div>
             </div>
-        </form>-->
+        </form>
+    -->
+        {% for post in posts %}
         <div class="col-sm-12 col-md-8 offset-md-2 mt-5 p-0 post-container">
             <div class="media pt-3 pl-3 pb-1">
                 <a href="{% url 'users:detail' post.user.username %}">
@@ -38,8 +38,9 @@
             <img style="width: 100%;" src="{{ post.photo.url }}" alt="{{ post.title }}">
 
             <p class="ml-2 mt-0 mb-2">
-                <small>{{ post.category }}</small>
-                <b>{{ post.description }}</b>
+                <p>{{ post.category }}</p>
+                <p>{{ post.description }}</p>
+                <p>{{ post.profile.phone_number }}</p>
             </p>
 
             <h2 style="font-weight: 100;">

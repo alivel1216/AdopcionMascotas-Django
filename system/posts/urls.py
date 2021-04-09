@@ -17,10 +17,11 @@ urlpatterns = [
         name='create'
     ),
     path(
-        route='posts/serch/',
-        view=views.listar_publicaciones,
-        name='buscar'
+        route='posts/guia/',
+        view=views.GuiaAdopcionView,
+        name='guia'
     ),
+   
     path(
         route='posts/<int:pk>/',
         view=views.PostDetailView.as_view(),
